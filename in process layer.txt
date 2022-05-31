@@ -1,0 +1,4 @@
+
+Elements taken care in the process layer
+	1. HeaderSeqNo  (ASNData)	
+	2. HeaderSeqNo 	(ASNDetails)
