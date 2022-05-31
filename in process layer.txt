@@ -1,4 +1,3 @@
-
 Elements taken care in the process layer
-	1. HeaderSeqNo  (ASNData)	
+	1. HeaderSeqNo  (ASNData)	coming from DashBoard
 	2. HeaderSeqNo 	(ASNDetails)
