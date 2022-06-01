@@ -2,8 +2,6 @@
 output application/xml
 ns ns0 http://xmlns.ECT.Emerson.com/SyncAdvanceShipNoticeOutEBM
 ns ns01 http://xmlns.ECT.Emerson.com/AdvanceShipNoticeOutEBO
-
-
 ---
 {
 	ns0#SyncAdvanceShipNoticeOutEBM: {
@@ -13,47 +11,43 @@ ns ns01 http://xmlns.ECT.Emerson.com/AdvanceShipNoticeOutEBO
 					ns01#CustEDIID: v856.Interchange.ISA06,
 					ns01#BOLNo: v856.Heading."0200_BSN".BSN02,
 					ns01#ShipPlantName: v856.Detail."0100_HL_Loop"."1510_PER".PER02,
-				    ns01#CustPONo: v856.Detail."0100_HL_Loop"."0500_PRF".PRF01,
-					ns01#CustPODate: v856.Detail."0100_HL_Loop"."0500_PRF".PRF04,
 					(v856.Detail."0100_HL_Loop" map(v1,i1) ->{
 						(if ( v1."0100_HL".HL03 == "S" ) {
-							ns01#ShipDate: v1."2000_DTM"[0].DTM02 as String {
-								format : "yyyyMMdd"
-							},
+							ns01#ShipDate: v1."2000_DTM"[0].DTM02 as String {format : "yyyyMMdd"},
 							(v1."2200_N1_Loop" map(v2,i2) ->{
 								(if ( v2."2200_N1".N101== "SF" ) {
 									ns01#ShipFromName: v2."2200_N1".N102,
 									ns01#ShipFromCity: v2."2500_N4".N401,
 									ns01#ShipFromState: v2."2500_N4".N402,
 									ns01#ShipFromZip: v2."2500_N4".N403,
-									ns01#ShipFromAddr: ((v2."2400_N3"[0].N301) ++" "++ (v2."2400_N3"[0].N302))
+									ns01#ShipFromAddr: ((v2."2400_N3"[0].N301) ++" " ++ (v2."2400_N3"[0].N302))
 								}  else null),
 							})
 						}
 						
 						else null)
-					})
-				},
-				ns0#ASNDetails: {
+					}),
 					(v856.Detail."0100_HL_Loop" map (v3,i3) ->{
 						(if ( v3."0100_HL".HL03 == "I" ) {
-							ns01#LineItemNo: v3."0200_LIN".LIN01,
-							ns01#ECTItemNo: v3."0200_LIN".LIN03,
-							ns01#CustItemNo: v3."0200_LIN".LIN07,
-							ns01#ShippedQty: v3."0300_SN1".SN102,
-							ns01#ItemSize: v3."0600_PO4".PO402,
-							ns01#UPCNo: v3."0200_LIN".LIN05,
-							ns01#ItemUOM: v3."0300_SN1".SN103,
-							ns01#PrimaryUOM: v3."0300_SN1".SN103,
-							ns01#ItemDesc: v3."0700_PID".PID05,
-							ns01#PackageDescription: v3."0700_PID".PID05,
-							ns01#BOLNo:v856.Heading."0200_BSN".BSN02,
-							ns01#CustEDIID: v856.Interchange.ISA06,
-							ns01#CustPONo: v856.Detail."0100_HL_Loop"."0500_PRF".PRF01,
-							ns01#CustPODate: v856.Detail."0100_HL_Loop"."0500_PRF".PRF04
+							ns0#ASNDetails: {
+								ns01#LineItemNo: v3."0200_LIN".LIN01,
+								ns01#ECTItemNo: v3."0200_LIN".LIN03,
+								ns01#CustItemNo: v3."0200_LIN".LIN07,
+								ns01#ShippedQty: v3."0300_SN1".SN102,
+								ns01#ItemSize: v3."0600_PO4".PO402,
+								ns01#UPCNo: v3."0200_LIN".LIN05,
+								ns01#ItemUOM: v3."0300_SN1".SN103,
+								ns01#PrimaryUOM: v3."0300_SN1".SN103,
+								ns01#ItemDesc: v3."0700_PID".PID05,
+								ns01#PackageDescription: v3."0700_PID".PID05,
+								ns01#BOLNo: v856.Heading."0200_BSN".BSN02,
+								ns01#CustEDIID: v856.Interchange.ISA06,
+								ns01#CustPONo: v856.Detail."0100_HL_Loop"."0500_PRF".PRF01,
+								ns01#CustPODate: v856.Detail."0100_HL_Loop"."0500_PRF".PRF04
+							}
 						}
 							else null)
-					}),
+					})
 				}
 			})
 		}
